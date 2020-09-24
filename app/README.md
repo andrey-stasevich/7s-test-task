@@ -1,5 +1,5 @@
 # app
-Module that creates ALB and EC2 instances in ASG for application deployment 
+Module that creates ALB in public subnets and EC2 instances in ASG for application deployment in private subnets to protect them from the Internet 
 
 ## Requirements
 
