@@ -1,9 +1,12 @@
+# SSH Keypair
 resource "aws_key_pair" "keypair" {
   key_name   = "kp-7s"
   public_key = var.public_key
 }
 
+# Module to manage default network
 module "vpc" {
+
   source = "./network"
 
   availability_zones = var.availability_zones
@@ -12,6 +15,7 @@ module "vpc" {
   secondary_cidr     = var.secondary_cidr
 }
 
+# Module to create bastion host to access EC2 instances in private subnets
 module "bastion" {
 
   source = "./bastion"
@@ -25,6 +29,7 @@ module "bastion" {
   vpc_id            = module.vpc.vpc_id
 }
 
+# Module to provision ALB and ASG resources
 module "app" {
 
   source = "./app"

@@ -1,3 +1,4 @@
+# Linux AMI
 data "aws_ami" "linux" {
   most_recent = true
   owners      = ["137112412989"]
@@ -11,6 +12,7 @@ data "aws_ami" "linux" {
   }
 }
 
+# Template for cloud init file
 data "template_cloudinit_config" "cloud_init" {
   base64_encode = true
   gzip          = true

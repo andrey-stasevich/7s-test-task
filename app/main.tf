@@ -1,3 +1,4 @@
+# ALB
 resource "aws_alb" "lb" {
   name               = "app-alb"
   load_balancer_type = "application"
@@ -9,6 +10,7 @@ resource "aws_alb" "lb" {
   }
 }
 
+# ALB Listener with forward action to Target Group resources
 resource "aws_lb_listener" "listener_http" {
 
   load_balancer_arn = aws_alb.lb.arn
@@ -20,6 +22,7 @@ resource "aws_lb_listener" "listener_http" {
   }
 }
 
+# Target group
 resource "aws_alb_target_group" "tg" {
   name     = "tg-app"
   port     = var.app_port
@@ -42,6 +45,7 @@ resource "aws_alb_target_group" "tg" {
   }
 }
 
+# Autoscaling group with the number of instances equal to the AZ count
 resource "aws_autoscaling_group" "asg" {
   name                 = "app-asg"
   launch_configuration = aws_launch_configuration.lc.name
@@ -63,6 +67,7 @@ resource "aws_autoscaling_group" "asg" {
   }
 }
 
+# Launch configuration for EC2 instance in private subnets
 resource "aws_launch_configuration" "lc" {
   name_prefix                 = "app-lc-"
   key_name                    = var.keypair_name

@@ -1,3 +1,4 @@
+# ALB security group
 resource "aws_security_group" "alb_security_group" {
   name = "alb"
   description = "Security group for ALB"
@@ -7,6 +8,7 @@ resource "aws_security_group" "alb_security_group" {
   }
 }
 
+# Rule that allows access to HTTP port
 resource "aws_security_group_rule" "sgr_alb_in_http" {
   description       = "Allow any HTTP traffic on port 80 to ALBs"
   type              = "ingress"
@@ -17,6 +19,7 @@ resource "aws_security_group_rule" "sgr_alb_in_http" {
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
+# Rule to allow outbound traffic from ALB
 resource "aws_security_group_rule" "sgr_alb_egr" {
   description       = "Allow all outbound traffic from the alb security group"
   type              = "egress"

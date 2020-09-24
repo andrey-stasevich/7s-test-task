@@ -1,3 +1,4 @@
+# Security group for EC2 instance created by ASG
 resource "aws_security_group" "app_security_group" {
   name = "app"
   description = "Security group for the appserver"
@@ -7,6 +8,7 @@ resource "aws_security_group" "app_security_group" {
   }
 }
 
+# Allow access from bastion to the instance
 resource "aws_security_group_rule" "sgr_app_in_ssh" {
   description       = "Allow SSH to hosts in the application security group"
   type              = "ingress"
@@ -18,6 +20,7 @@ resource "aws_security_group_rule" "sgr_app_in_ssh" {
   source_security_group_id = var.bastion_sg_id
 }
 
+# Allow access to HTTP port from ALB
 resource "aws_security_group_rule" "sgr_app_in_alb" {
   description       = "Allow HTTP to hosts in the application security group"
   type              = "ingress"
@@ -29,6 +32,7 @@ resource "aws_security_group_rule" "sgr_app_in_alb" {
   source_security_group_id = aws_security_group.alb_security_group.id
 }
 
+# Allow outbound traffic from the instance
 resource "aws_security_group_rule" "sgr_app_egr" {
   description       = "Allow all outbound traffic from the application security group"
   type              = "egress"

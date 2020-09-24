@@ -1,3 +1,4 @@
+# Populate linux AMI
 data "aws_ami" "linux" {
   most_recent = true
   owners      = ["137112412989"]

@@ -1,3 +1,4 @@
+# Bastion EC2 instance
 resource "aws_instance" "ec2_bastion" {
 
   ami                         = data.aws_ami.linux.id
